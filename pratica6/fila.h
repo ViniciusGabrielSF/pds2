@@ -43,6 +43,7 @@ class Fila {
  private:
   No* primeiro_;
   No* ultimo_;
+  int tamanho_;
 };
 
 #endif
