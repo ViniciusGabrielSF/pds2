@@ -10,62 +10,71 @@ Complexo::Complexo() {
 }
 
 Complexo::Complexo(double a, double b) {
-    this->real_ = a;
-    this->imag_ = b;
+    this->real_ = sqrt( pow(a,2) + pow(b,2));
+    this->imag_ = atan2(b, a); 
 }
 
 double Complexo::real() {
-  return this->real_;
+  return this->real_ * cos(this->imag_);
 }
 
 double Complexo::imag() {
-  return this->imag_;
+  return this->real_ * sin(this->imag_);
 }
 
 bool Complexo::igual(Complexo x) {
-  return this->real_ == x.real() && this->imag_ == x.imag();
+  return this->real_ == x.real_ && this->imag_ == x.imag_;
 }
 
 void Complexo::Atribuir(Complexo x) {
-    this->real_ = x.real();
-    this->imag_ = x.imag();
+    this->real_ = x.real_;
+    this->imag_ = x.imag_;
 }
 
 double Complexo::modulo() {
-  return sqrt( pow(this->real_,2) + pow(this->imag_,2));
+  return this->imag_;
 }
 
 Complexo Complexo::conjugado() {
-  Complexo c new Complexo{this->real_, (-1 * this->imag_)};
+  Complexo c;
+  c.real_ = this->real_;
+  c.imag_ = (-1 * this->imag_);
   return c;
 }
 
 Complexo Complexo::simetrico() {
-  Complexo c new Complexo{ ( -1 * this->real_), (-1 * this->imag_)};
+  Complexo c;
+  c.real_ = this->real_;
+  c.imag_ = this->imag_ + M_PI;
   return c;
 }
 
 Complexo Complexo::inverso() {
   Complexo i;
+  i.real_ = 1.0 / this->real_;
+  i.imag_ = (-1 * this->imag_);
   return i;
 }
 
 Complexo Complexo::somar(Complexo y) {
-  Complexo s;
+  Complexo s = Complexo(this->real() + y.real(), this->imag() + y.imag());
   return s;
 }
 
 Complexo Complexo::subtrair(Complexo y) {
-  Complexo s;
-  return s;
+  Complexo s = Complexo(- 1* y.real(), -1 * y.imag());
+  return this->somar(s);
 }
 
 Complexo Complexo::multiplicar(Complexo y) {
   Complexo p;
+  p.real_ = this->real_ * y.real_;
+  p.imag_ = this->real_ + y.imag_;
   return p;
 }
 
 Complexo Complexo::dividir(Complexo y) {
-  Complexo d;
-  return d;
+  Complexo d = y.inverso();
+
+  return multiplicar(d);
 }
