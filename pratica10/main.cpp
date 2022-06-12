@@ -7,7 +7,7 @@ TEST_CASE("JogoDaVida::JogoDaVida(int l, int c)") {
   JogoDaVida t(3, 3);
   for (int i : {0, 1, 2}) {
     for (int j : {0, 1, 2}) {
-      CHECK_FALSE(??????????);
+      CHECK_FALSE(t.viva(i,j));
     }
   }
 }
@@ -26,7 +26,11 @@ TEST_CASE("JogoDaVida::Reviver(int i, int j)") {
   // e se as outras estão mortas.
   for (int i : {0, 1, 2}) {
     for (int j : {0, 1, 2}) {
-      CHECK(??????????);
+      if(i < j ){
+        CHECK(t.viva(i,j));
+      } else {
+        CHECK_FALSE(t.viva(i,j));
+      }
     }
   }
 }
@@ -52,7 +56,11 @@ TEST_CASE("JogoDaVida::Matar(int i, int j)") {
   // e se as outras estão vivas.
   for (int i : {0, 1, 2}) {
     for (int j : {0, 1, 2}) {
-      CHECK(??????????);
+      if(i < j ){
+        CHECK_FALSE(t.viva(i,j));
+      } else {
+        CHECK(t.viva(i,j));
+      }
     }
   }
 } 
@@ -88,7 +96,7 @@ TEST_CASE("JogoDaVida::ExecutarProximaIteracao()") {
   t.ExecutarProximaIteracao();
   for (int i : {0, 1, 2, 3, 4}) {
     for (int j : {0, 1, 2, 3, 4}) {
-      CHECK(??????????);
+      CHECK(t.viva(i,j) == p.viva(i,j));
     }
   }
 }
@@ -101,9 +109,9 @@ TEST_CASE("Testa o lancamento de ExcecaoCelulaInvalida") {
     for (int j = -1; j <= c; j++) {
       if (i < 0 || j < 0 || i == l || j == c) {  
         // Se a célula NÃO é valida, deve lançar uma exceção.
-        CHECK_THROWS_AS(t.Reviver(i, j), ??????????); 
-        CHECK_THROWS_AS(t.Matar(i, j), ??????????);
-        CHECK_THROWS_AS(t.viva(i, j), ??????????);
+        CHECK_THROWS_AS(t.Reviver(i, j), ExcecaoCelulaInvalida); 
+        CHECK_THROWS_AS(t.Matar(i, j), ExcecaoCelulaInvalida);
+        CHECK_THROWS_AS(t.viva(i, j), ExcecaoCelulaInvalida);
       } else {
          // Se a célula é valida, NÃO deve lançar uma exceção.
         CHECK_NOTHROW(t.Reviver(i, j)); 
