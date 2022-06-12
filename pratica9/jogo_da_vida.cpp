@@ -6,18 +6,37 @@ JogoDaVida::JogoDaVida(int l, int c)
     : vivas_(l, std::vector<bool>(c, false)) {
 }
 
+
+void validarCoordenadas(int i, int linhas, int j, int colunas){
+    if(i < 0 ||  i >= linhas || j < 0 ||  j >= colunas ){
+        ExcecaoCelulaInvalida ex;
+        ex.linha = i;
+        ex.coluna = j;
+        
+        throw ex;
+    }
+}
+
 bool JogoDaVida::viva(int i, int j) {
+    validarCoordenadas(i, this->linhas(),j , this->colunas());
+
   return vivas_[i][j];
 }
 
 void JogoDaVida::Matar(int i, int j) {
+    validarCoordenadas(i, this->linhas(),j , this->colunas());
+    
   vivas_[i][j] = false;
 }
 void JogoDaVida::Reviver(int i, int j) {
+    validarCoordenadas(i, this->linhas(),j , this->colunas());
+    
   vivas_[i][j] = true;
 }
 
 int JogoDaVida::NumeroDeVizinhasVivas(int x, int y) {
+    validarCoordenadas(x, this->linhas(),y , this->colunas());
+    
   int vizinhas_vivas = 0;
   for (int i : {x - 1, x, x + 1}) {
     for (int j : {y - 1, y, y + 1}) {
