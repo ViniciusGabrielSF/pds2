@@ -7,29 +7,33 @@ JogoDaVida::JogoDaVida(int l, int c)
     : vivas_(l, std::vector<bool>(c, false)) {
 }
 
+void validarCoordenadas(int i, int linhas, int j, int colunas){
+    assert(i >= 0 && i < linhas);
+    assert(j >= 0 && j < colunas);
+}
+
 bool JogoDaVida::viva(int i, int j) {
-    assert(i >= 0 && i < this->linhas());
-    assert(j >= 0 && j < this->colunas());
+    validarCoordenadas(i, this->linhas(),j , this->colunas() );
     
   return vivas_[i][j];
 }
 
 void JogoDaVida::Matar(int i, int j) {
-    assert(i >= 0 && i < this->linhas());
-    assert(j >= 0 && j < this->colunas());
+    validarCoordenadas(i, this->linhas(),j , this->colunas() );
     assert(vivas_[i][j] == true);
     
   vivas_[i][j] = false;
 }
 void JogoDaVida::Reviver(int i, int j) {
-    assert(i >= 0 && i < this->linhas());
-    assert(j >= 0 && j < this->colunas());
+    validarCoordenadas(i, this->linhas(),j , this->colunas() );
     assert(vivas_[i][j] == false);
     
   vivas_[i][j] = true;
 }
 
 int JogoDaVida::NumeroDeVizinhasVivas(int x, int y) {
+    validarCoordenadas(x, this->linhas(),y , this->colunas() );
+    
   int vizinhas_vivas = 0;
   for (int i : {x - 1, x, x + 1}) {
     for (int j : {y - 1, y, y + 1}) {
