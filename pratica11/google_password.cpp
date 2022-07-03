@@ -1,5 +1,5 @@
 #include "google_password.hpp"
-
+#include "usuario.hpp"
 #include <iostream>
 
 void GooglePassword::insert(const std::string& url,
@@ -21,10 +21,18 @@ void GooglePassword::insert(const std::string& url,
    * test_123456_test
    * senha test
    */
+
+  if(!checkPassword(password))
+    return;
+
+  Usuario usuario(login, password);
+
+  m_passwords.insert(make_pair(url,usuario) );
+ 
 }
 
 void GooglePassword::remove(const std::string& url) {
-  // TODO: Implemente este metodo
+  m_passwords.erase(url);
 }
 
 
@@ -39,6 +47,21 @@ void GooglePassword::update(const std::string& url,
    * atualizados se a senha armazenada no sistema for igual a old_password.
    * Nao esqueca de verificar se o novo password tambem e valido.
    */
+
+  auto par = m_passwords.find(url);
+
+  if(par == m_passwords.end())
+    return;
+
+  if(par->second.getPassword() != old_password)
+    return;
+
+  if(!checkPassword(new_password))
+    return;
+
+  par->second.setLogin(login);
+  par->second.setPassword(new_password);
+
 }
 
 void GooglePassword::printPasswords() {
@@ -51,9 +74,25 @@ void GooglePassword::printPasswords() {
    * zzz.site.com: login and password
    *
    */
+
+  
+    std::cout << m_passwords.size() << std::endl;
+    for (auto const& atual : m_passwords)
+    {
+      std::cout << atual.first << ": " << atual.second.getLogin() << " and " << atual.second.getPassword() << std::endl;
+    }
 }
 
 bool GooglePassword::checkPassword(const std::string& password) const {
-  // TODO: Implemente este metodo
+  if(password.find("123456") != std::string::npos)
+    return false;
+
+  if(password.size() > 50 || password.size() < 6)
+        return false;
+
+  if(password.find(" ") != std::string::npos)
+    return false;
+
+    return true;
 }
 
