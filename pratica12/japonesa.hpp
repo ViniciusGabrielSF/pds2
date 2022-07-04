@@ -36,7 +36,10 @@ class Japonesa : public Produto {
   std::string descricao() const override;
 
  private:
-  // TODO: Declare aqui as variaveis da classe. Note que as variaveis quantidade
-  // (qtd) e valor ja sao herdadas de Produto
+  std::string combinado;
+  int sushis;
+  int temakis;
+  int hots;
+
 };
 #endif

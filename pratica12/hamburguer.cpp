@@ -9,13 +9,19 @@ std::string Hamburguer::descricao() const {
    * 1X Hamburguer X-tudo artesanal.
    * 1X Hamburguer X-tudo simples.
    */
-   
-  return "";
+  std::string textoQuantidade  = std::to_string(m_qtd) + "X ";
+  std::string textoTipo = "Hamburguer " + tipo;
+  std::string textoArtesanal = " " + std::string(artesanal ? "artesanal." : "simples.");
+  return textoQuantidade + textoTipo + textoArtesanal;
 }
 
 Hamburguer::Hamburguer(const std::string& tipo,
                        bool artesanal,
                        int qtd,
                        float valor_unitario) {
-  // TODO: Implemente este metodo.
+  this->m_qtd = qtd;
+  this->m_valor_unitario = valor_unitario;
+
+  this->tipo = tipo;
+  this->artesanal = artesanal;
 }
