@@ -1,6 +1,8 @@
 #ifndef _ESTOQUE_H
 #define _ESTOQUE_H
 
+#include <map>
+
 /**
  * \details  Este arquivo eh parte de um VPL de PDS II
  * \author   Fernando Magno Quintao Pereira
@@ -49,6 +51,13 @@ class Estoque {
      * de 's', caso contrario.
      */
     unsigned int get_qtd(const std::string& s) const;
+
+        /**
+     * \brief Informa o estoque total
+     *
+     * \return map de mercadorias e quantidades, o estoque.
+     */
+    std::map<std::string, unsigned int> get_estoque() const;
 
     /**
      * \brief Remove unidades de uma mercadoria do estoque.
@@ -149,6 +158,7 @@ class Estoque {
 
   private:
     // TODO: acrescente novas estruturas de dados e novos metodos aqui.
+     std::map<std::string, unsigned int> estoque;
 };
 
 #endif
