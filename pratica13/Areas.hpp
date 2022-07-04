@@ -20,7 +20,7 @@ template <class T> class AreaSet {
      * \brief Metodo que adiciona um novo elemento a este conjunto de areas.
      */
     void add(T e) {
-      // TODO: Implemente este metodo.
+      areas.push_back(e);
     }
     /**
      * \brief Reporta a area total de todos os objetos armazenados neste
@@ -30,7 +30,14 @@ template <class T> class AreaSet {
      * pode ser invocado sobre esses objetos.
      */
     int getTotalArea() const {
-      // TODO: Implemente este metodo.
+
+      int areaTotal = 0;
+      for (auto const& atual : areas)
+      {
+        areaTotal += atual.getArea();
+      }
+      
+      return areaTotal;
     }
 };
 
@@ -57,13 +64,13 @@ class Pais {
      * quadrados.
      */
     int getArea() const {
-      // TODO: Implemente este metodo.
+      return area;
     }
     /**
      * \brief informa nome do pais.
      */
     std::string getNome() const {
-      // TODO: Implemente este metodo.
+      return nome;
     }
     /**
      * \brief Operador de entrada de dados.
@@ -104,11 +111,11 @@ class Retangulo {
      * valores, o valor zero eh considerado.
      */
     Retangulo(int l=0, int a=0) {
-      // TODO: Implemente o construtor.
+      lado = l;
+      altura = a;
     }
     int getArea() const {
-      // TODO: Implemente este metodo.
-      return 0;
+      return lado * altura;
     }
     /**
      * \brief Operador de leitura de dados. Retangulos sao lidos como dois
@@ -116,7 +123,7 @@ class Retangulo {
      * valor do lado do retangulo, e o segundo numero eh o valor da altura.
      */
     friend std::istream &operator >> (std::istream &input, Retangulo &r) {
-      // TODO: Implemente este metodo.
+      input >> r.lado >> r.altura;
       return input;
     }
     /**
@@ -144,8 +151,13 @@ class Imovel {
      * comodos que esse imovel contem.
      */
     int getArea() const {
-      // TODO: Implemente este metodo.
-      return 0;
+
+      int areaTotal = 0;
+      for (auto const& atual : comodos)
+      {
+        areaTotal += atual.second;
+      }
+      return areaTotal;
     }
     /**
      * Adiciona um novo comodo ao imovel. Um comodo eh formado por um nome e uma
