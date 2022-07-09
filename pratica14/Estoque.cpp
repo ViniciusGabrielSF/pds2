@@ -36,9 +36,6 @@ unsigned int Estoque::get_qtd(const std::string& mercadoria) const {
   return parMercadoria->second;
 }
 
-std::map<std::string, unsigned int> Estoque::get_estoque() const{
-  return estoque;
-}
 
 void Estoque::imprime_estoque() const {
   for (auto const& atual : estoque)
@@ -49,7 +46,7 @@ void Estoque::imprime_estoque() const {
 }
 
 Estoque& Estoque::operator += (const Estoque& rhs) {
-  for (auto const& atual : rhs.get_estoque())
+  for (auto const& atual : rhs.estoque)
   {
     add_mercadoria(atual.first, atual.second);
   }
@@ -57,31 +54,22 @@ Estoque& Estoque::operator += (const Estoque& rhs) {
 }
 
 Estoque& Estoque::operator -= (const Estoque& rhs) {
-  for (auto const& atual : rhs.get_estoque())
+  for (auto const& atual : rhs.estoque)
   {
     sub_mercadoria(atual.first, atual.second);
   }
   return *this;
 }
 
-bool validarComparaveis(Estoque& lhs, Estoque& rhs){
-  auto estoqueRhs = rhs.get_estoque();
-
-  for (auto const& atual : lhs.get_estoque())
-  {
-    if (estoqueRhs.find(atual.first) == estoqueRhs.end())
-      return false;
-  }
-  return true;
-}
-
 bool operator < (Estoque& lhs, Estoque& rhs) {
-  if(!validarComparaveis(lhs,rhs))
-    return false;
-
-  for (auto const& atual : lhs.get_estoque())
+  for (auto const& atual : lhs.estoque)
   {
-    if (rhs.get_qtd(atual.first) <= lhs.get_qtd(atual.first))
+    std::string nomeMercadoria = atual.first; 
+
+    if (rhs.estoque.find(nomeMercadoria) == rhs.estoque.end())
+      return false;
+
+    if (rhs.get_qtd(nomeMercadoria) <= lhs.get_qtd(nomeMercadoria))
       return false;
   }
 
@@ -90,12 +78,15 @@ bool operator < (Estoque& lhs, Estoque& rhs) {
 }
 
 bool operator > (Estoque& lhs, Estoque& rhs) {
-    if(!validarComparaveis(rhs, lhs))
-    return false;
 
-  for (auto const& atual : lhs.get_estoque())
+  for (auto const& atual : rhs.estoque)
   {
-    if (rhs.get_qtd(atual.first) >= lhs.get_qtd(atual.first))
+    std::string nomeMercadoria = atual.first; 
+
+    if (lhs.estoque.find(nomeMercadoria) == lhs.estoque.end())
+      return false;
+
+    if (rhs.get_qtd(nomeMercadoria) >= lhs.get_qtd(nomeMercadoria))
       return false;
   }
 

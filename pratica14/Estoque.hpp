@@ -52,13 +52,6 @@ class Estoque {
      */
     unsigned int get_qtd(const std::string& s) const;
 
-        /**
-     * \brief Informa o estoque total
-     *
-     * \return map de mercadorias e quantidades, o estoque.
-     */
-    std::map<std::string, unsigned int> get_estoque() const;
-
     /**
      * \brief Remove unidades de uma mercadoria do estoque.
      *
